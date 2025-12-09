@@ -47,7 +47,7 @@
                   class="text-3xl hover:scale-125 transition-transform duration-300 shrink-0"
                   [style.color]="isFavorite() ? '#B94625' : '#d1d5db'"
                 >
-                  {{ isFavorite() ? 'â™¥' : 'â™¡' }}
+                  {{ isFavorite() ? '♥' : '♡' }}
                 </button>
               </div>
 
@@ -104,7 +104,7 @@
                       class="text-3xl transition-all duration-300 hover:scale-125 focus:outline-none focus:ring-4 focus:ring-[#E57A44]/30 rounded-lg"
                       [style.color]="star <= (reviewForm.get('rating')?.value || 0) ? '#E57A44' : '#d1d5db'"
                     >
-                      {{ star <= (reviewForm.get('rating')?.value || 0) ? 'â˜…' : 'â˜†' }}
+                      {{ star <= (reviewForm.get('rating')?.value || 0) ? '★' : '☆' }}
                     </button>
                   </div>
                   <div *ngIf="reviewForm.get('rating')?.invalid && reviewForm.get('rating')?.touched" class="mt-2">
@@ -259,7 +259,7 @@
                   <div class="flex flex-wrap items-center gap-3 mb-4">
                     <div class="text-2xl">
                       <span *ngFor="let star of [1, 2, 3, 4, 5]" [style.color]="star <= review.rating ? '#E57A44' : '#d1d5db'">
-                        {{ star <= review.rating ? 'â˜…' : 'â˜†' }}
+                        {{ star <= review.rating ? '★' : '☆' }}
                       </span>
                     </div>
                     <span *ngIf="review.isSpoiler" class="px-3 py-1 text-xs rounded-full font-bold bg-gradient-to-br from-[#E57A44] to-[#F2B8A2] text-white">
