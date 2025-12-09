@@ -1,0 +1,60 @@
+ <div class="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
+      <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
+            Ghibli Locations
+          </h1>
+          <p class="text-slate-600 text-lg">
+            Explore the magical places of Studio Ghibli worlds
+          </p>
+        </div>
+
+        <!-- Loading State -->
+        <div *ngIf="loading()" class="text-center py-12">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+          <p class="mt-4 text-slate-600">Loading locations...</p>
+        </div>
+
+        <!-- Error State -->
+        <div *ngIf="error()" class="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+          <p class="text-red-700">{{ error() }}</p>
+          <button 
+            (click)="loadLocations()"
+            class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+
+        <!-- Locations Grid -->
+        <div *ngIf="!loading() && !error()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div 
+            *ngFor="let location of locations()" 
+            class="bg-white rounded-lg shadow-md p-6 border-2 border-teal-100 hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-slate-800 mb-4">{{ location.name }}</h3>
+            
+            <div class="space-y-2 text-sm">
+              <div *ngIf="location.climate">
+                <span class="font-medium text-slate-700">Climate:</span>
+                <span class="ml-2 text-slate-600">{{ location.climate }}</span>
+              </div>
+              <div *ngIf="location.terrain">
+                <span class="font-medium text-slate-700">Terrain:</span>
+                <span class="ml-2 text-slate-600">{{ location.terrain }}</span>
+              </div>
+              <div *ngIf="location.surface_water">
+                <span class="font-medium text-slate-700">Surface Water:</span>
+                <span class="ml-2 text-slate-600">{{ location.surface_water }}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!loading() && !error() && locations().length === 0" class="text-center py-12">
+          <p class="text-slate-600 text-lg">No locations found.</p>
+        </div>
+      </div>
+    </div>

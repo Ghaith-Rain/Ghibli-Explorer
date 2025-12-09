@@ -1,0 +1,60 @@
+<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
+      <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
+            Ghibli Species
+          </h1>
+          <p class="text-slate-600 text-lg">
+            Discover the diverse species in Studio Ghibli films
+          </p>
+        </div>
+
+        <!-- Loading State -->
+        <div *ngIf="loading()" class="text-center py-12">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500"></div>
+          <p class="mt-4 text-slate-600">Loading species...</p>
+        </div>
+
+        <!-- Error State -->
+        <div *ngIf="error()" class="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+          <p class="text-red-700">{{ error() }}</p>
+          <button 
+            (click)="loadSpecies()"
+            class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+
+        <!-- Species Grid -->
+        <div *ngIf="!loading() && !error()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div 
+            *ngFor="let species of speciesList()" 
+            class="bg-white rounded-lg shadow-md p-6 border-2 border-amber-100 hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-slate-800 mb-4">{{ species.name }}</h3>
+            
+            <div class="space-y-2 text-sm">
+              <div *ngIf="species.classification">
+                <span class="font-medium text-slate-700">Classification:</span>
+                <span class="ml-2 text-slate-600">{{ species.classification }}</span>
+              </div>
+              <div *ngIf="species.eye_color">
+                <span class="font-medium text-slate-700">Eye Color:</span>
+                <span class="ml-2 text-slate-600">{{ species.eye_color }}</span>
+              </div>
+              <div *ngIf="species.hair_color">
+                <span class="font-medium text-slate-700">Hair Color:</span>
+                <span class="ml-2 text-slate-600">{{ species.hair_color }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!loading() && !error() && speciesList().length === 0" class="text-center py-12">
+          <p class="text-slate-600 text-lg">No species found.</p>
+        </div>
+      </div>
+    </div>

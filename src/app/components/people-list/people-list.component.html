@@ -1,0 +1,64 @@
+<div class="min-h-screen bg-gradient-to-br from-green-50 via-yellow-50 to-pink-50">
+      <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
+            Ghibli Characters
+          </h1>
+          <p class="text-slate-600 text-lg">
+            Meet the wonderful characters from Studio Ghibli films
+          </p>
+        </div>
+
+        <!-- Loading State -->
+        <div *ngIf="loading()" class="text-center py-12">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+          <p class="mt-4 text-slate-600">Loading characters...</p>
+        </div>
+
+        <!-- Error State -->
+        <div *ngIf="error()" class="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+          <p class="text-red-700">{{ error() }}</p>
+          <button 
+            (click)="loadPeople()"
+            class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+
+        <!-- People Grid -->
+        <div *ngIf="!loading() && !error()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div 
+            *ngFor="let person of people()" 
+            class="bg-white rounded-lg shadow-md p-6 border-2 border-green-100 hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-slate-800 mb-3">{{ person.name }}</h3>
+            
+            <div class="space-y-2 text-sm">
+              <div *ngIf="person.gender">
+                <span class="font-medium text-slate-700">Gender:</span>
+                <span class="ml-2 text-slate-600">{{ person.gender }}</span>
+              </div>
+              <div *ngIf="person.age">
+                <span class="font-medium text-slate-700">Age:</span>
+                <span class="ml-2 text-slate-600">{{ person.age }}</span>
+              </div>
+              <div *ngIf="person.eye_color">
+                <span class="font-medium text-slate-700">Eye Color:</span>
+                <span class="ml-2 text-slate-600">{{ person.eye_color }}</span>
+              </div>
+              <div *ngIf="person.hair_color">
+                <span class="font-medium text-slate-700">Hair Color:</span>
+                <span class="ml-2 text-slate-600">{{ person.hair_color }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!loading() && !error() && people().length === 0" class="text-center py-12">
+          <p class="text-slate-600 text-lg">No characters found.</p>
+        </div>
+      </div>
+    </div>
