@@ -31,7 +31,7 @@ export class UiStateService {
   private filmReviewsSignal = signal<FilmReview[]>([]);
 
   // Dark mode toggle
-  private darkModeSignal = signal<boolean>(true);
+  private darkModeSignal = signal<boolean>(false);
 
   constructor() {
     // Load from localStorage if available
