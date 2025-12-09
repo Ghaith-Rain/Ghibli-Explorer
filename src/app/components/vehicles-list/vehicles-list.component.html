@@ -1,64 +1,84 @@
-<div class="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-      <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <div class="text-center mb-12">
-          <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
-            Ghibli Vehicles
-          </h1>
-          <p class="text-slate-600 text-lg">
-            Journey through the amazing vehicles of Studio Ghibli
+﻿<div class="min-h-screen bg-linear-to-br from-[#EDE7D9] via-[#F7F3E9] to-[#607D8B]">
+  <div class="container mx-auto px-12 md:px-20 lg:px-32 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-6xl md:text-7xl font-black text-[#607D8B] mb-4 tracking-tight drop-shadow-lg">
+        Ghibli Vehicles
+      </h1>
+      <p class="text-[#555B6E] text-lg md:text-xl font-medium max-w-2xl mx-auto">
+        Journey through the amazing vehicles of Studio Ghibli
+      </p>
+      <div class="mt-4 w-24 h-1 bg-linear-to-r from-[#607D8B] via-[#A8D0E6] to-[#607D8B] mx-auto rounded-full shadow-lg"></div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading()" class="text-center py-12">
+      <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-[#607D8B]"></div>
+      <p class="mt-4 text-[#555B6E] font-medium">Loading vehicles...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error()" class="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+      <p class="text-red-700">{{ error() }}</p>
+      <button 
+        (click)="loadVehicles()"
+        class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+      >
+        Try Again
+      </button>
+    </div>
+
+    <!-- Vehicles Grid -->
+    <div *ngIf="!loading() && !error()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div 
+        *ngFor="let vehicle of vehicles()" 
+        class="group relative bg-[#F7F3E9] rounded-2xl shadow-xl overflow-hidden 
+               border-2 border-[#607D8B] transition-all duration-300 
+               hover:shadow-2xl hover:border-[#A8D0E6]"
+      >
+        <!-- Floating decoration circle -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-[#607D8B] opacity-10 
+                    rounded-full -mr-16 -mt-16 group-hover:scale-150 
+                    transition-transform duration-500"></div>
+        
+        <!-- Content -->
+        <div class="relative p-6">
+          <h3 class="text-lg font-bold text-[#555B6E] mb-3 
+                     group-hover:text-[#607D8B] transition-colors">
+            {{ vehicle.name }}
+          </h3>
+          
+          <p *ngIf="vehicle.description" class="text-sm text-[#555B6E] mb-4 leading-relaxed">
+            {{ vehicle.description | truncateText:120 }}
           </p>
-        </div>
-
-        <!-- Loading State -->
-        <div *ngIf="loading()" class="text-center py-12">
-          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
-          <p class="mt-4 text-slate-600">Loading vehicles...</p>
-        </div>
-
-        <!-- Error State -->
-        <div *ngIf="error()" class="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-          <p class="text-red-700">{{ error() }}</p>
-          <button 
-            (click)="loadVehicles()"
-            class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
-          >
-            Try Again
-          </button>
-        </div>
-
-        <!-- Vehicles Grid -->
-        <div *ngIf="!loading() && !error()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div 
-            *ngFor="let vehicle of vehicles()" 
-            class="bg-white rounded-lg shadow-md p-6 border-2 border-indigo-100 hover:shadow-lg transition-shadow"
-          >
-            <h3 class="text-xl font-semibold text-slate-800 mb-3">{{ vehicle.name }}</h3>
-            
-            <p *ngIf="vehicle.description" class="text-slate-600 mb-4 text-sm">
-              {{ vehicle.description | truncateText:120 }}
-            </p>
-            
-            <div class="space-y-2 text-sm">
-              <div *ngIf="vehicle.vehicle_class">
-                <span class="font-medium text-slate-700">Class:</span>
-                <span class="ml-2 text-slate-600">{{ vehicle.vehicle_class }}</span>
-              </div>
-              <div *ngIf="vehicle.length">
-                <span class="font-medium text-slate-700">Length:</span>
-                <span class="ml-2 text-slate-600">{{ vehicle.length }} ft</span>
-              </div>
-              <div *ngIf="vehicle.pilot">
-                <span class="font-medium text-slate-700">Pilot:</span>
-                <span class="ml-2 text-slate-600">{{ vehicle.pilot }}</span>
-              </div>
+          
+          <div class="space-y-2 text-xs">
+            <div *ngIf="vehicle.vehicle_class" 
+                 class="flex items-center bg-linear-to-r from-[#607D8B]/20 to-[#A8D0E6]/20 
+                        p-2 rounded-lg border border-[#607D8B]/30">
+              <span class="font-bold text-[#607D8B] w-20">Class:</span>
+              <span class="text-[#555B6E]">{{ vehicle.vehicle_class }}</span>
+            </div>
+            <div *ngIf="vehicle.length" 
+                 class="flex items-center bg-linear-to-r from-[#607D8B]/20 to-[#A8D0E6]/20 
+                        p-2 rounded-lg border border-[#607D8B]/30">
+              <span class="font-bold text-[#607D8B] w-20">Length:</span>
+              <span class="text-[#555B6E]">{{ vehicle.length }} ft</span>
+            </div>
+            <div *ngIf="vehicle.pilot" 
+                 class="flex items-center bg-linear-to-r from-[#607D8B]/20 to-[#A8D0E6]/20 
+                        p-2 rounded-lg border border-[#607D8B]/30">
+              <span class="font-bold text-[#607D8B] w-20">Pilot:</span>
+              <span class="text-[#555B6E]">{{ vehicle.pilot }}</span>
             </div>
           </div>
         </div>
-
-        <!-- Empty State -->
-        <div *ngIf="!loading() && !error() && vehicles().length === 0" class="text-center py-12">
-          <p class="text-slate-600 text-lg">No vehicles found.</p>
-        </div>
       </div>
     </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading() && !error() && vehicles().length === 0" class="text-center py-12">
+      <p class="text-[#555B6E] text-lg">No vehicles found.</p>
+    </div>
+  </div>
+</div>

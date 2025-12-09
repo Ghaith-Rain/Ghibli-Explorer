@@ -1,2 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+/* Studio Ghibli Color Palette */
+:root {
+  /* Greens */
+  --forest-spirit: #8FBF8F;
+  --moss-green: #6C8B5C;
+  --meadow-grass: #A7C47D;
+  
+  /* Blues */
+  --calm-sky: #A8D0E6;
+  --lake-blue: #4A90A4;
+  --dusty-blue: #607D8B;
+  
+  /* Neutrals */
+  --ghibli-stone: #EDE7D9;
+  --warm-rice: #F7F3E9;
+  --soft-charcoal: #555B6E;
+  
+  /* Warm tones */
+  --sunset-peach: #F2B8A2;
+  --spirit-lantern: #E57A44;
+  --ember-glow: #B94625;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--warm-rice);
+  color: var(--soft-charcoal);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Navigation Active States */
+.nav-active {
+  background-color: var(--forest-spirit) !important;
+  color: white !important;
+  font-weight: 600;
+}

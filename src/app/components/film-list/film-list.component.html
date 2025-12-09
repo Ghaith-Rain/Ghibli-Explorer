@@ -1,34 +1,38 @@
-<div class="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-purple-50">
+<div class="min-h-screen" style="background: linear-gradient(135deg, var(--ghibli-warm-rice-paper) 0%, var(--ghibli-stone) 50%, var(--ghibli-calm-sky) 100%);">
       <div class="container mx-auto px-4 py-8">
         <!-- Header -->
         <div class="text-center mb-12">
-          <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
+          <h1 class="text-5xl md:text-6xl font-bold mb-3" style="color: var(--ghibli-forest-spirit); letter-spacing: 0.02em;">
             Studio Ghibli Films
           </h1>
-          <p class="text-slate-600 text-lg">
+          <div class="flex justify-center mb-4">
+            <div class="h-1 w-32 rounded-full" style="background-color: var(--ghibli-moss-green);"></div>
+          </div>
+          <p class="text-base" style="color: var(--ghibli-dusty-blue);">
             Explore the magical world of Studio Ghibli
           </p>
         </div>
 
         <!-- Loading State -->
         <div *ngIf="loading()" class="text-center py-12">
-          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500"></div>
-          <p class="mt-4 text-slate-600">Loading films...</p>
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2" style="border-color: var(--ghibli-sunset-peach);"></div>
+          <p class="mt-4" style="color: var(--ghibli-soft-charcoal);">Loading films...</p>
         </div>
 
         <!-- Error State -->
-        <div *ngIf="error()" class="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-          <p class="text-red-700">{{ error() }}</p>
+        <div *ngIf="error()" class="max-w-md mx-auto rounded-lg p-6 text-center" style="background-color: var(--ghibli-sunset-peach); border: 2px solid var(--ghibli-ember-glow);">
+          <p style="color: var(--ghibli-ember-glow);">{{ error() }}</p>
           <button 
             (click)="loadFilms()"
-            class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+            class="mt-4 px-4 py-2 text-white rounded hover:opacity-90 transition-colors"
+            style="background-color: var(--ghibli-ember-glow);"
           >
             Try Again
           </button>
         </div>
 
         <!-- Films Grid -->
-        <div *ngIf="!loading() && !error()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngIf="!loading() && !error()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-8">
           <app-film-card 
             *ngFor="let film of films()" 
             [film]="film"

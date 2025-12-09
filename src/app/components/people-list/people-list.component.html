@@ -1,64 +1,86 @@
-<div class="min-h-screen bg-gradient-to-br from-green-50 via-yellow-50 to-pink-50">
-      <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <div class="text-center mb-12">
-          <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
-            Ghibli Characters
-          </h1>
-          <p class="text-slate-600 text-lg">
-            Meet the wonderful characters from Studio Ghibli films
-          </p>
-        </div>
+﻿<div class="min-h-screen bg-linear-to-br from-[#EDE7D9] via-[#F7F3E9] to-[#A7C47D]">
+  <div class="container mx-auto px-12 md:px-20 lg:px-32 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-6xl md:text-7xl font-black text-[#6C8B5C] mb-4 tracking-tight drop-shadow-lg">
+        Ghibli Characters
+      </h1>
+      <p class="text-[#555B6E] text-lg md:text-xl font-medium max-w-2xl mx-auto">
+        Meet the wonderful characters from Studio Ghibli films
+      </p>
+      <div class="mt-4 w-24 h-1 bg-linear-to-r from-[#6C8B5C] via-[#8FBF8F] to-[#6C8B5C] mx-auto rounded-full shadow-lg"></div>
+    </div>
 
-        <!-- Loading State -->
-        <div *ngIf="loading()" class="text-center py-12">
-          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
-          <p class="mt-4 text-slate-600">Loading characters...</p>
-        </div>
+    <!-- Loading State -->
+    <div *ngIf="loading()" class="text-center py-12">
+      <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-[#8FBF8F]"></div>
+      <p class="mt-4 text-[#555B6E] font-medium">Loading characters...</p>
+    </div>
 
-        <!-- Error State -->
-        <div *ngIf="error()" class="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-          <p class="text-red-700">{{ error() }}</p>
-          <button 
-            (click)="loadPeople()"
-            class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
-          >
-            Try Again
-          </button>
-        </div>
+    <!-- Error State -->
+    <div *ngIf="error()" class="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+      <p class="text-red-700">{{ error() }}</p>
+      <button 
+        (click)="loadPeople()"
+        class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+      >
+        Try Again
+      </button>
+    </div>
 
-        <!-- People Grid -->
-        <div *ngIf="!loading() && !error()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <div 
-            *ngFor="let person of people()" 
-            class="bg-white rounded-lg shadow-md p-6 border-2 border-green-100 hover:shadow-lg transition-shadow"
-          >
-            <h3 class="text-xl font-semibold text-slate-800 mb-3">{{ person.name }}</h3>
-            
-            <div class="space-y-2 text-sm">
-              <div *ngIf="person.gender">
-                <span class="font-medium text-slate-700">Gender:</span>
-                <span class="ml-2 text-slate-600">{{ person.gender }}</span>
-              </div>
-              <div *ngIf="person.age">
-                <span class="font-medium text-slate-700">Age:</span>
-                <span class="ml-2 text-slate-600">{{ person.age }}</span>
-              </div>
-              <div *ngIf="person.eye_color">
-                <span class="font-medium text-slate-700">Eye Color:</span>
-                <span class="ml-2 text-slate-600">{{ person.eye_color }}</span>
-              </div>
-              <div *ngIf="person.hair_color">
-                <span class="font-medium text-slate-700">Hair Color:</span>
-                <span class="ml-2 text-slate-600">{{ person.hair_color }}</span>
-              </div>
+    <!-- People Grid -->
+    <div *ngIf="!loading() && !error()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div 
+        *ngFor="let person of people()" 
+        class="group relative bg-[#F7F3E9] rounded-2xl shadow-xl overflow-hidden 
+               border-2 border-[#8FBF8F] transition-all duration-300 
+               hover:shadow-2xl hover:border-[#6C8B5C]"
+      >
+        <!-- Floating decoration circle -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-[#8FBF8F] opacity-10 
+                    rounded-full -mr-16 -mt-16 group-hover:scale-150 
+                    transition-transform duration-500"></div>
+        
+        <!-- Content -->
+        <div class="relative p-6">
+          <h3 class="text-lg font-bold text-[#555B6E] mb-4 
+                     group-hover:text-[#6C8B5C] transition-colors">
+            {{ person.name }}
+          </h3>
+          
+          <div class="space-y-2 text-xs">
+            <div *ngIf="person.gender" 
+                 class="flex items-center bg-linear-to-r from-[#A7C47D]/20 to-[#8FBF8F]/20 
+                        p-2 rounded-lg border border-[#8FBF8F]/30">
+              <span class="font-bold text-[#6C8B5C] w-20">Gender:</span>
+              <span class="text-[#555B6E]">{{ person.gender }}</span>
+            </div>
+            <div *ngIf="person.age" 
+                 class="flex items-center bg-linear-to-r from-[#A7C47D]/20 to-[#8FBF8F]/20 
+                        p-2 rounded-lg border border-[#8FBF8F]/30">
+              <span class="font-bold text-[#6C8B5C] w-20">Age:</span>
+              <span class="text-[#555B6E]">{{ person.age }}</span>
+            </div>
+            <div *ngIf="person.eye_color" 
+                 class="flex items-center bg-linear-to-r from-[#A7C47D]/20 to-[#8FBF8F]/20 
+                        p-2 rounded-lg border border-[#8FBF8F]/30">
+              <span class="font-bold text-[#6C8B5C] w-20">Eye Color:</span>
+              <span class="text-[#555B6E]">{{ person.eye_color }}</span>
+            </div>
+            <div *ngIf="person.hair_color" 
+                 class="flex items-center bg-linear-to-r from-[#A7C47D]/20 to-[#8FBF8F]/20 
+                        p-2 rounded-lg border border-[#8FBF8F]/30">
+              <span class="font-bold text-[#6C8B5C] w-20">Hair Color:</span>
+              <span class="text-[#555B6E]">{{ person.hair_color }}</span>
             </div>
           </div>
         </div>
-
-        <!-- Empty State -->
-        <div *ngIf="!loading() && !error() && people().length === 0" class="text-center py-12">
-          <p class="text-slate-600 text-lg">No characters found.</p>
-        </div>
       </div>
     </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading() && !error() && people().length === 0" class="text-center py-12">
+      <p class="text-[#555B6E] text-lg">No characters found.</p>
+    </div>
+  </div>
+</div>

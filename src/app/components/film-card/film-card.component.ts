@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Film } from '../../models/film.model';
 import { TruncateTextPipe } from '../../pipes/truncate-text.pipe';
-import { HoverFloatDirective } from '../../directives/hover-float.directive';
 import { UiStateService } from '../../services/ui-state.service';
 
 @Component({
   selector: 'app-film-card',
   standalone: true,
-  imports: [CommonModule, RouterLink, TruncateTextPipe, HoverFloatDirective],
+  imports: [CommonModule, RouterLink, TruncateTextPipe],
   templateUrl: './film-card.component.html',
   styleUrl: './film-card.component.css'
 })

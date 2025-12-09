@@ -1,50 +1,69 @@
-<div 
-      appHoverFloat
-      class="bg-white rounded-lg shadow-md overflow-hidden border-2 border-pink-100 h-full flex flex-col"
-    >
-      <div class="p-6 flex-grow">
-        <div class="flex justify-between items-start mb-3">
-          <h3 class="text-xl font-semibold text-slate-800 line-clamp-2">
-            {{ film.title }}
-          </h3>
-          <button
-            (click)="toggleFavorite($event)"
-            class="ml-2 text-2xl hover:scale-110 transition-transform"
-            [class.text-red-500]="isFavorite()"
-            [class.text-gray-300]="!isFavorite()"
-          >
-            {{ isFavorite() ? '♥' : '♡' }}
-          </button>
-        </div>
-        
-        <p class="text-sm text-slate-500 mb-1 italic">{{ film.original_title_romanised }}</p>
-        
-        <p class="text-slate-600 mb-4 text-sm leading-relaxed">
-          {{ film.description | truncateText:150 }}
-        </p>
-        
-        <div class="space-y-2 text-sm">
-          <div class="flex items-center">
-            <span class="font-medium text-slate-700 w-20">Director:</span>
-            <span class="text-slate-600">{{ film.director }}</span>
-          </div>
-          <div class="flex items-center">
-            <span class="font-medium text-slate-700 w-20">Year:</span>
-            <span class="text-slate-600">{{ film.release_date }}</span>
-          </div>
-          <div class="flex items-center">
-            <span class="font-medium text-slate-700 w-20">Score:</span>
-            <span class="text-slate-600 font-semibold">{{ film.rt_score }}/100</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="p-4 bg-gradient-to-r from-pink-50 to-blue-50 border-t border-pink-100">
-        <a 
-          [routerLink]="['/films', film.id]"
-          class="block text-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
-        >
-          View Details →
-        </a>
+<div class="group relative bg-[#F7F3E9] rounded-2xl shadow-xl overflow-hidden 
+            border-2 border-[#8FBF8F] transition-all duration-300 
+            hover:shadow-2xl hover:border-[#6C8B5C] h-full flex flex-col">
+  
+  <!-- Floating decoration circle -->
+  <div class="absolute top-0 right-0 w-32 h-32 bg-[#8FBF8F] opacity-10 
+              rounded-full -mr-16 -mt-16 group-hover:scale-150 
+              transition-transform duration-500"></div>
+  
+  <!-- Content -->
+  <div class="relative p-6 grow">
+    <div class="flex justify-between items-start mb-3">
+      <h3 class="text-lg font-bold text-[#555B6E] group-hover:text-[#6C8B5C] 
+                 transition-colors flex-1 pr-2">
+        {{ film.title }}
+      </h3>
+      <button
+        (click)="toggleFavorite($event)"
+        class="text-3xl hover:scale-125 transition-all duration-300 drop-shadow-lg flex-shrink-0"
+        [class.text-[#B94625]]="isFavorite()"
+        [class.text-gray-300]="!isFavorite()"
+        [class.animate-pulse]="isFavorite()"
+      >
+        {{ isFavorite() ? '♥' : '♡' }}
+      </button>
+    </div>
+    
+    <p class="text-xs italic mb-4 text-[#6C8B5C] font-semibold">
+      {{ film.original_title_romanised }}
+    </p>
+    
+    <p class="text-sm text-[#555B6E] mb-6 leading-relaxed">
+      {{ film.description | truncateText:150 }}
+    </p>
+    
+    <div class="space-y-2 text-xs mb-4">
+      <div class="flex items-center bg-gradient-to-r from-[#A7C47D]/20 to-[#8FBF8F]/20 
+                  p-2 rounded-lg border border-[#8FBF8F]/30">
+        <span class="font-bold text-[#6C8B5C] w-20">Director:</span>
+        <span class="text-[#555B6E]">{{ film.director }}</span>
       </div>
     </div>
+
+    <!-- Year and Score badges -->
+    <div class="grid grid-cols-2 gap-3">
+      <div class="bg-gradient-to-br from-[#A8D0E6] to-[#4A90A4]/20 
+                  rounded-lg p-3 border-2 border-[#A8D0E6]/50">
+        <div class="text-xs font-bold text-[#4A90A4] mb-1">Year</div>
+        <div class="text-base font-black text-[#555B6E]">{{ film.release_date }}</div>
+      </div>
+      <div class="bg-gradient-to-br from-[#F2B8A2] to-[#E57A44]/20 
+                  rounded-lg p-3 border-2 border-[#F2B8A2]/50">
+        <div class="text-xs font-bold text-[#B94625] mb-1">Score</div>
+        <div class="text-base font-black text-[#555B6E]">{{ film.rt_score }}/100</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer button -->
+  <div class="relative p-4 bg-gradient-to-r from-[#6C8B5C] to-[#8FBF8F]">
+    <a 
+      [routerLink]="['/films', film.id]"
+      class="block text-center text-sm font-black text-white 
+             hover:scale-105 transition-transform duration-300"
+    >
+      View Full Details →
+    </a>
+  </div>
+</div>

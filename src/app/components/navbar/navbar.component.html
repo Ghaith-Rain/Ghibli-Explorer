@@ -1,108 +1,117 @@
-    <nav class="bg-white shadow-lg border-b-2 border-pink-100">
-      <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between h-16">
-          <!-- Logo -->
-          <a routerLink="/films" class="flex items-center space-x-2">
-            <span class="text-2xl">🎬</span>
-            <span class="text-xl font-bold text-slate-800">Ghibli Explorer</span>
-          </a>
+﻿<nav class="bg-[#EDE7D9] shadow-lg border-b-4 border-[#6C8B5C]">
+  <div class="container mx-auto px-12 md:px-20 lg:px-32 py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <a routerLink="/films" class="flex flex-col">
+        <span class="text-lg font-black uppercase tracking-wide text-[#6C8B5C]">GHIBLI</span>
+        <span class="text-xs font-bold uppercase tracking-wider text-[#555B6E]">EXPLORER</span>
+      </a>
 
-          <!-- Desktop Navigation -->
-          <div class="hidden md:flex items-center space-x-1">
-            <a 
-              routerLink="/films" 
-              routerLinkActive="bg-pink-100 text-pink-700"
-              [routerLinkActiveOptions]="{exact: false}"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-pink-50 transition-colors font-medium"
-            >
-              Films
-            </a>
-            <a 
-              routerLink="/people" 
-              routerLinkActive="bg-green-100 text-green-700"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-green-50 transition-colors font-medium"
-            >
-              People
-            </a>
-            <a 
-              routerLink="/locations" 
-              routerLinkActive="bg-teal-100 text-teal-700"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-teal-50 transition-colors font-medium"
-            >
-              Locations
-            </a>
-            <a 
-              routerLink="/species" 
-              routerLinkActive="bg-amber-100 text-amber-700"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-amber-50 transition-colors font-medium"
-            >
-              Species
-            </a>
-            <a 
-              routerLink="/vehicles" 
-              routerLinkActive="bg-indigo-100 text-indigo-700"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 transition-colors font-medium"
-            >
-              Vehicles
-            </a>
-          </div>
-
-          <!-- Mobile Menu Button -->
-          <button 
-            (click)="toggleMobileMenu()"
-            class="md:hidden p-2 rounded-lg hover:bg-pink-50 transition-colors"
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div *ngIf="mobileMenuOpen" class="md:hidden pb-4">
-          <div class="flex flex-col space-y-2">
-            <a 
-              routerLink="/films" 
-              routerLinkActive="bg-pink-100 text-pink-700"
-              [routerLinkActiveOptions]="{exact: false}"
-              (click)="closeMobileMenu()"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-pink-50 transition-colors font-medium"
-            >
-              Films
-            </a>
-            <a 
-              routerLink="/people" 
-              routerLinkActive="bg-green-100 text-green-700"
-              (click)="closeMobileMenu()"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-green-50 transition-colors font-medium"
-            >
-              People
-            </a>
-            <a 
-              routerLink="/locations" 
-              routerLinkActive="bg-teal-100 text-teal-700"
-              (click)="closeMobileMenu()"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-teal-50 transition-colors font-medium"
-            >
-              Locations
-            </a>
-            <a 
-              routerLink="/species" 
-              routerLinkActive="bg-amber-100 text-amber-700"
-              (click)="closeMobileMenu()"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-amber-50 transition-colors font-medium"
-            >
-              Species
-            </a>
-            <a 
-              routerLink="/vehicles" 
-              routerLinkActive="bg-indigo-100 text-indigo-700"
-              (click)="closeMobileMenu()"
-              class="px-4 py-2 rounded-lg text-slate-700 hover:bg-indigo-50 transition-colors font-medium"
-            >
-              Vehicles
-            </a>
-          </div>
-        </div>
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-2">
+        <a 
+          routerLink="/films" 
+          routerLinkActive="nav-active"
+          [routerLinkActiveOptions]="{exact: false}"
+          class="px-6 py-2 rounded-full text-[#555B6E] hover:bg-[#8FBF8F] hover:text-white 
+                 transition-all duration-300 font-bold text-sm"
+        >
+          Films
+        </a>
+        <a 
+          routerLink="/people" 
+          routerLinkActive="nav-active"
+          class="px-6 py-2 rounded-full text-[#555B6E] hover:bg-[#8FBF8F] hover:text-white 
+                 transition-all duration-300 font-bold text-sm"
+        >
+          People
+        </a>
+        <a 
+          routerLink="/locations" 
+          routerLinkActive="nav-active"
+          class="px-6 py-2 rounded-full text-[#555B6E] hover:bg-[#A8D0E6] hover:text-white 
+                 transition-all duration-300 font-bold text-sm"
+        >
+          Locations
+        </a>
+        <a 
+          routerLink="/species" 
+          routerLinkActive="nav-active"
+          class="px-6 py-2 rounded-full text-[#555B6E] hover:bg-[#E57A44] hover:text-white 
+                 transition-all duration-300 font-bold text-sm"
+        >
+          Species
+        </a>
+        <a 
+          routerLink="/vehicles" 
+          routerLinkActive="nav-active"
+          class="px-6 py-2 rounded-full text-[#555B6E] hover:bg-[#607D8B] hover:text-white 
+                 transition-all duration-300 font-bold text-sm"
+        >
+          Vehicles
+        </a>
       </div>
-    </nav>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        (click)="toggleMobileMenu()"
+        class="md:hidden p-2 rounded-lg text-[#555B6E] hover:bg-[#8FBF8F] hover:text-white 
+               transition-colors duration-300"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div *ngIf="mobileMenuOpen" class="md:hidden pt-4 pb-2 space-y-2">
+      <a 
+        routerLink="/films" 
+        routerLinkActive="nav-active"
+        [routerLinkActiveOptions]="{exact: false}"
+        (click)="closeMobileMenu()"
+        class="block px-4 py-2 rounded-full text-[#555B6E] hover:bg-[#8FBF8F] hover:text-white 
+               transition-all duration-300 font-bold text-sm"
+      >
+        Films
+      </a>
+      <a 
+        routerLink="/people" 
+        routerLinkActive="nav-active"
+        (click)="closeMobileMenu()"
+        class="block px-4 py-2 rounded-full text-[#555B6E] hover:bg-[#8FBF8F] hover:text-white 
+               transition-all duration-300 font-bold text-sm"
+      >
+        People
+      </a>
+      <a 
+        routerLink="/locations" 
+        routerLinkActive="nav-active"
+        (click)="closeMobileMenu()"
+        class="block px-4 py-2 rounded-full text-[#555B6E] hover:bg-[#A8D0E6] hover:text-white 
+               transition-all duration-300 font-bold text-sm"
+      >
+        Locations
+      </a>
+      <a 
+        routerLink="/species" 
+        routerLinkActive="nav-active"
+        (click)="closeMobileMenu()"
+        class="block px-4 py-2 rounded-full text-[#555B6E] hover:bg-[#E57A44] hover:text-white 
+               transition-all duration-300 font-bold text-sm"
+      >
+        Species
+      </a>
+      <a 
+        routerLink="/vehicles" 
+        routerLinkActive="nav-active"
+        (click)="closeMobileMenu()"
+        class="block px-4 py-2 rounded-full text-[#555B6E] hover:bg-[#607D8B] hover:text-white 
+               transition-all duration-300 font-bold text-sm"
+      >
+        Vehicles
+      </a>
+    </div>
+  </div>
+</nav>

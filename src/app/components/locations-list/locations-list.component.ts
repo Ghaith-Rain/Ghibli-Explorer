@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+﻿import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GhibliApiService } from '../../services/ghibli-api.service';
 import { Location } from '../../models/location.model';

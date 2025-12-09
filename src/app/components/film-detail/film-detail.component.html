@@ -1,268 +1,294 @@
-<div class="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-purple-50 py-8">
-      <div class="container mx-auto px-4">
+﻿<div class="min-h-screen py-12 px-6 md:px-12 lg:px-20" style="background: linear-gradient(135deg, #F7F3E9 0%, #EDE7D9 50%, #A8D0E6 100%);">
+      <div class="max-w-6xl mx-auto">
         <!-- Back Button -->
         <a 
           routerLink="/films" 
-          class="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6 transition-colors"
+          class="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 font-semibold text-sm"
+          style="background: linear-gradient(135deg, #8FBF8F 0%, #6C8B5C 100%); color: white; box-shadow: 0 4px 12px rgba(143, 191, 143, 0.3);"
         >
-          ← Back to Films
+          â† Back to Films
         </a>
 
         <!-- Loading State -->
-        <div *ngIf="loading()" class="text-center py-12">
-          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500"></div>
-          <p class="mt-4 text-slate-600">Loading film details...</p>
+        <div *ngIf="loading()" class="text-center py-20">
+          <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-[#F2B8A2] border-t-[#E57A44]"></div>
+          <p class="mt-6 text-lg font-semibold text-[#555B6E]">Loading film details...</p>
         </div>
 
         <!-- Error State -->
-        <div *ngIf="error()" class="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-          <p class="text-red-700">{{ error() }}</p>
-          <a routerLink="/films" class="mt-4 inline-block px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors">
+        <div *ngIf="error()" class="max-w-md mx-auto rounded-2xl p-8 text-center bg-white border-3 border-[#B94625] shadow-xl">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#F2B8A2] flex items-center justify-center">
+            <span class="text-3xl text-[#B94625]">!</span>
+          </div>
+          <p class="text-[#B94625] font-semibold mb-6">{{ error() }}</p>
+          <a routerLink="/films" class="inline-block px-6 py-3 text-white rounded-full transition-all duration-300 hover:scale-105 font-semibold" style="background: linear-gradient(135deg, #E57A44 0%, #B94625 100%);">
             Back to Films
           </a>
         </div>
 
         <!-- Film Detail -->
-        <div *ngIf="film() && !loading() && !error()" class="max-w-4xl mx-auto">
-          <!-- Film Header -->
-          <div class="bg-white rounded-lg shadow-lg p-8 mb-6 border-2 border-pink-100">
-            <div class="flex justify-between items-start mb-4">
-              <div>
-                <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
-                  {{ film()!.title }}
-                </h1>
-                <p class="text-lg text-slate-500 italic mb-1">{{ film()!.original_title }}</p>
-                <p class="text-slate-500">{{ film()!.original_title_romanised }}</p>
+        <div *ngIf="film() && !loading() && !error()">
+          <!-- Film Header Card -->
+          <div class="relative bg-white rounded-2xl shadow-xl p-8 md:p-10 mb-8 border-3 border-[#8FBF8F] overflow-hidden">
+            <!-- Floating Decoration -->
+            <div class="absolute -top-8 -right-8 w-32 h-32 rounded-full opacity-20 transition-all duration-500 hover:scale-150" style="background: linear-gradient(135deg, #8FBF8F 0%, #6C8B5C 100%);"></div>
+            
+            <div class="relative">
+              <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
+                <div class="flex-1">
+                  <h1 class="text-2xl md:text-3xl font-bold mb-2 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">
+                    {{ film()!.title }}
+                  </h1>
+                  <p class="text-sm italic mb-1 text-[#6C8B5C]">{{ film()!.original_title }}</p>
+                  <p class="text-sm text-[#A7C47D]">{{ film()!.original_title_romanised }}</p>
+                </div>
+                <button
+                  (click)="toggleFavorite()"
+                  class="text-3xl hover:scale-125 transition-transform duration-300 shrink-0"
+                  [style.color]="isFavorite() ? '#B94625' : '#d1d5db'"
+                >
+                  {{ isFavorite() ? 'â™¥' : 'â™¡' }}
+                </button>
               </div>
-              <button
-                (click)="toggleFavorite()"
-                class="text-3xl hover:scale-110 transition-transform"
-                [class.text-red-500]="isFavorite()"
-                [class.text-gray-300]="!isFavorite()"
-              >
-                {{ isFavorite() ? '♥' : '♡' }}
-              </button>
-            </div>
 
-            <!-- Film Details Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div>
-                <span class="font-semibold text-slate-700">Director:</span>
-                <span class="ml-2 text-slate-600">{{ film()!.director }}</span>
+              <!-- Film Details Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                <div class="px-4 py-3 rounded-xl bg-gradient-to-br from-[#8FBF8F] to-[#6C8B5C] text-white">
+                  <span class="block text-xs font-semibold opacity-90 mb-1">Director</span>
+                  <span class="block text-sm font-bold">{{ film()!.director }}</span>
+                </div>
+                <div class="px-4 py-3 rounded-xl bg-gradient-to-br from-[#A7C47D] to-[#8FBF8F] text-white">
+                  <span class="block text-xs font-semibold opacity-90 mb-1">Producer</span>
+                  <span class="block text-sm font-bold">{{ film()!.producer }}</span>
+                </div>
+                <div class="px-4 py-3 rounded-xl bg-gradient-to-br from-[#4A90A4] to-[#A8D0E6] text-white">
+                  <span class="block text-xs font-semibold opacity-90 mb-1">Release Year</span>
+                  <span class="block text-sm font-bold">{{ film()!.release_date }}</span>
+                </div>
+                <div class="px-4 py-3 rounded-xl bg-gradient-to-br from-[#607D8B] to-[#A8D0E6] text-white">
+                  <span class="block text-xs font-semibold opacity-90 mb-1">Running Time</span>
+                  <span class="block text-sm font-bold">{{ film()!.running_time }} min</span>
+                </div>
+                <div class="px-4 py-3 rounded-xl bg-gradient-to-br from-[#E57A44] to-[#F2B8A2] text-white">
+                  <span class="block text-xs font-semibold opacity-90 mb-1">RT Score</span>
+                  <span class="block text-sm font-bold">{{ film()!.rt_score }}/100</span>
+                </div>
               </div>
-              <div>
-                <span class="font-semibold text-slate-700">Producer:</span>
-                <span class="ml-2 text-slate-600">{{ film()!.producer }}</span>
-              </div>
-              <div>
-                <span class="font-semibold text-slate-700">Release Year:</span>
-                <span class="ml-2 text-slate-600">{{ film()!.release_date }}</span>
-              </div>
-              <div>
-                <span class="font-semibold text-slate-700">Running Time:</span>
-                <span class="ml-2 text-slate-600">{{ film()!.running_time }} minutes</span>
-              </div>
-              <div>
-                <span class="font-semibold text-slate-700">RT Score:</span>
-                <span class="ml-2 text-slate-600 font-semibold">{{ film()!.rt_score }}/100</span>
-              </div>
-            </div>
 
-            <!-- Description -->
-            <div class="border-t border-slate-200 pt-6">
-              <h2 class="text-xl font-semibold text-slate-800 mb-3">Description</h2>
-              <p class="text-slate-600 leading-relaxed">{{ film()!.description }}</p>
+              <!-- Description -->
+              <div class="pt-6 border-t-2 border-[#EDE7D9]">
+                <h2 class="text-xl font-bold mb-3 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">Description</h2>
+                <p class="leading-relaxed text-[#555B6E] text-sm">{{ film()!.description }}</p>
+              </div>
             </div>
           </div>
 
           <!-- Film Review Form -->
-          <div class="bg-white rounded-lg shadow-lg p-6 mb-6 border-2 border-blue-100">
-            <h2 class="text-2xl font-semibold text-slate-800 mb-4">Write a Review</h2>
-            <form [formGroup]="reviewForm" (ngSubmit)="addReview()">
-              <!-- Star Rating -->
-              <div class="mb-6">
-                <label class="block text-sm font-medium text-slate-700 mb-3">
-                  Rating * <span class="text-slate-500">(Select 1-5 stars)</span>
-                </label>
-                <div class="flex gap-2">
-                  <button
-                    *ngFor="let star of [1, 2, 3, 4, 5]"
-                    type="button"
-                    (click)="setRating(star)"
-                    class="text-4xl transition-all hover:scale-110"
-                    [class.text-yellow-400]="star <= (reviewForm.get('rating')?.value || 0)"
-                    [class.text-gray-300]="star > (reviewForm.get('rating')?.value || 0)"
-                  >
-                    {{ star <= (reviewForm.get('rating')?.value || 0) ? '★' : '☆' }}
-                  </button>
+          <div class="relative bg-white rounded-2xl shadow-xl p-8 md:p-10 mb-8 border-3 border-[#4A90A4] overflow-hidden">
+            <!-- Floating Decoration -->
+            <div class="absolute -top-8 -right-8 w-32 h-32 rounded-full opacity-20 transition-all duration-500 hover:scale-150" style="background: linear-gradient(135deg, #4A90A4 0%, #A8D0E6 100%);"></div>
+            
+            <div class="relative">
+              <h2 class="text-2xl font-bold mb-6 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">Write a Review</h2>
+              <form [formGroup]="reviewForm" (ngSubmit)="addReview()">
+                <!-- Star Rating -->
+                <div class="mb-6">
+                  <label class="block text-sm font-bold mb-3 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">
+                    Rating * <span class="text-[#6C8B5C] font-normal">(Select 1-5 stars)</span>
+                  </label>
+                  <div class="flex gap-2">
+                    <button
+                      *ngFor="let star of [1, 2, 3, 4, 5]"
+                      type="button"
+                      (click)="setRating(star)"
+                      class="text-3xl transition-all duration-300 hover:scale-125 focus:outline-none focus:ring-4 focus:ring-[#E57A44]/30 rounded-lg"
+                      [style.color]="star <= (reviewForm.get('rating')?.value || 0) ? '#E57A44' : '#d1d5db'"
+                    >
+                      {{ star <= (reviewForm.get('rating')?.value || 0) ? 'â˜…' : 'â˜†' }}
+                    </button>
+                  </div>
+                  <div *ngIf="reviewForm.get('rating')?.invalid && reviewForm.get('rating')?.touched" class="mt-2">
+                    <p class="text-sm font-semibold text-[#B94625]">Please select a rating</p>
+                  </div>
                 </div>
-                <div *ngIf="reviewForm.get('rating')?.invalid && reviewForm.get('rating')?.touched" class="mt-2">
-                  <p class="text-sm text-red-600">Please select a rating</p>
-                </div>
-              </div>
 
-              <!-- Review Title -->
-              <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-slate-700 mb-2">
-                  Review Title *
-                </label>
-                <input
-                  id="title"
-                  type="text"
-                  formControlName="title"
-                  class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  [class.border-red-500]="reviewForm.get('title')?.invalid && reviewForm.get('title')?.touched"
-                  placeholder="Give your review a catchy title..."
-                />
-                <div *ngIf="reviewForm.get('title')?.invalid && reviewForm.get('title')?.touched" class="mt-2">
-                  <p *ngIf="reviewForm.get('title')?.errors?.['required']" class="text-sm text-red-600">
-                    Title is required
-                  </p>
-                  <p *ngIf="reviewForm.get('title')?.errors?.['minlength']" class="text-sm text-red-600">
-                    Title must be at least 5 characters
-                  </p>
-                  <p *ngIf="reviewForm.get('title')?.errors?.['maxlength']" class="text-sm text-red-600">
-                    Title must not exceed 50 characters
-                  </p>
-                </div>
-              </div>
-
-              <!-- Review Text -->
-              <div class="mb-4">
-                <label for="reviewText" class="block text-sm font-medium text-slate-700 mb-2">
-                  Review *
-                </label>
-                <textarea
-                  id="reviewText"
-                  formControlName="reviewText"
-                  rows="5"
-                  class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  [class.border-red-500]="reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched"
-                  placeholder="Write your detailed review here..."
-                ></textarea>
-                <div class="flex justify-between items-center mt-1">
-                  <div *ngIf="reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched">
-                    <p *ngIf="reviewForm.get('reviewText')?.errors?.['required']" class="text-sm text-red-600">
-                      Review text is required
+                <!-- Review Title -->
+                <div class="mb-6">
+                  <label for="title" class="block text-sm font-bold mb-2 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">
+                    Review Title *
+                  </label>
+                  <input
+                    id="title"
+                    type="text"
+                    formControlName="title"
+                    class="w-full px-4 py-3 border-3 border-[#A8D0E6] rounded-2xl focus:ring-4 focus:ring-[#4A90A4]/30 focus:border-[#4A90A4] transition-all duration-300 text-[#555B6E]"
+                    [class.border-[#B94625]]="reviewForm.get('title')?.invalid && reviewForm.get('title')?.touched"
+                    [class.ring-4]="reviewForm.get('title')?.invalid && reviewForm.get('title')?.touched"
+                    [class.ring-[#B94625]/20]="reviewForm.get('title')?.invalid && reviewForm.get('title')?.touched"
+                    placeholder="Give your review a catchy title..."
+                  />
+                  <div *ngIf="reviewForm.get('title')?.invalid && reviewForm.get('title')?.touched" class="mt-2 space-y-1">
+                    <p *ngIf="reviewForm.get('title')?.errors?.['required']" class="text-sm font-semibold text-[#B94625]">
+                      Title is required
                     </p>
-                    <p *ngIf="reviewForm.get('reviewText')?.errors?.['minlength']" class="text-sm text-red-600">
-                      Review must be at least 50 characters
+                    <p *ngIf="reviewForm.get('title')?.errors?.['minlength']" class="text-sm font-semibold text-[#B94625]">
+                      Title must be at least 5 characters
                     </p>
-                    <p *ngIf="reviewForm.get('reviewText')?.errors?.['maxlength']" class="text-sm text-red-600">
-                      Review must not exceed 500 characters
-                    </p>
-                    <p *ngIf="reviewForm.get('reviewText')?.errors?.['spoilerWarning']" class="text-sm text-red-600">
-                      If marked as spoiler, review must contain "spoiler" warning
+                    <p *ngIf="reviewForm.get('title')?.errors?.['maxlength']" class="text-sm font-semibold text-[#B94625]">
+                      Title must not exceed 50 characters
                     </p>
                   </div>
-                  <span class="text-xs text-slate-500">
-                    {{ reviewForm.get('reviewText')?.value?.length || 0 }}/500
-                  </span>
                 </div>
-              </div>
 
-              <!-- Mood Selection -->
-              <div class="mb-4">
-                <label for="mood" class="block text-sm font-medium text-slate-700 mb-2">
-                  Mood/Category *
-                </label>
-                <select
-                  id="mood"
-                  formControlName="mood"
-                  class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  [class.border-red-500]="reviewForm.get('mood')?.invalid && reviewForm.get('mood')?.touched"
-                >
-                  <option value="">Select a mood...</option>
-                  <option value="Heartwarming">Heartwarming</option>
-                  <option value="Adventurous">Adventurous</option>
-                  <option value="Emotional">Emotional</option>
-                  <option value="Magical">Magical</option>
-                  <option value="Nostalgic">Nostalgic</option>
-                  <option value="Thought-provoking">Thought-provoking</option>
-                  <option value="Whimsical">Whimsical</option>
-                </select>
-                <div *ngIf="reviewForm.get('mood')?.invalid && reviewForm.get('mood')?.touched" class="mt-2">
-                  <p class="text-sm text-red-600">Please select a mood</p>
+                <!-- Review Text -->
+                <div class="mb-6">
+                  <label for="reviewText" class="block text-sm font-bold mb-2 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">
+                    Review *
+                  </label>
+                  <textarea
+                    id="reviewText"
+                    formControlName="reviewText"
+                    rows="6"
+                    class="w-full px-4 py-3 border-3 border-[#A8D0E6] rounded-2xl focus:ring-4 focus:ring-[#4A90A4]/30 focus:border-[#4A90A4] transition-all duration-300 text-[#555B6E] resize-none"
+                    [class.border-[#B94625]]="reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched"
+                    [class.ring-4]="reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched"
+                    [class.ring-[#B94625]/20]="reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched"
+                    placeholder="Write your detailed review here..."
+                  ></textarea>
+                  <div class="flex justify-between items-start mt-2">
+                    <div *ngIf="reviewForm.get('reviewText')?.invalid && reviewForm.get('reviewText')?.touched" class="space-y-1">
+                      <p *ngIf="reviewForm.get('reviewText')?.errors?.['required']" class="text-sm font-semibold text-[#B94625]">
+                        Review text is required
+                      </p>
+                      <p *ngIf="reviewForm.get('reviewText')?.errors?.['minlength']" class="text-sm font-semibold text-[#B94625]">
+                        Review must be at least 50 characters
+                      </p>
+                      <p *ngIf="reviewForm.get('reviewText')?.errors?.['maxlength']" class="text-sm font-semibold text-[#B94625]">
+                        Review must not exceed 500 characters
+                      </p>
+                      <p *ngIf="reviewForm.get('reviewText')?.errors?.['spoilerWarning']" class="text-sm font-semibold text-[#B94625]">
+                        If marked as spoiler, review must contain "spoiler" warning
+                      </p>
+                    </div>
+                    <span class="text-xs font-semibold text-[#6C8B5C] ml-auto">
+                      {{ reviewForm.get('reviewText')?.value?.length || 0 }}/500
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Spoiler Checkbox -->
-              <div class="mb-4">
-                <label class="flex items-center cursor-pointer">
+                <!-- Mood Selection -->
+                <div class="mb-6">
+                  <label for="mood" class="block text-sm font-bold mb-2 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">
+                    Mood/Category *
+                  </label>
+                  <select
+                    id="mood"
+                    formControlName="mood"
+                    class="w-full px-4 py-3 border-3 border-[#A8D0E6] rounded-2xl focus:ring-4 focus:ring-[#4A90A4]/30 focus:border-[#4A90A4] transition-all duration-300 text-[#555B6E] bg-white"
+                    [class.border-[#B94625]]="reviewForm.get('mood')?.invalid && reviewForm.get('mood')?.touched"
+                    [class.ring-4]="reviewForm.get('mood')?.invalid && reviewForm.get('mood')?.touched"
+                    [class.ring-[#B94625]/20]="reviewForm.get('mood')?.invalid && reviewForm.get('mood')?.touched"
+                  >
+                    <option value="">Select a mood...</option>
+                    <option value="Heartwarming">Heartwarming</option>
+                    <option value="Adventurous">Adventurous</option>
+                    <option value="Emotional">Emotional</option>
+                    <option value="Magical">Magical</option>
+                    <option value="Nostalgic">Nostalgic</option>
+                    <option value="Thought-provoking">Thought-provoking</option>
+                    <option value="Whimsical">Whimsical</option>
+                  </select>
+                  <div *ngIf="reviewForm.get('mood')?.invalid && reviewForm.get('mood')?.touched" class="mt-2">
+                    <p class="text-sm font-semibold text-[#B94625]">Please select a mood</p>
+                  </div>
+                </div>
+
+                <!-- Spoiler Checkbox -->
+                <div class="mb-6">
+                  <label class="flex items-center cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      formControlName="isSpoiler"
+                      class="w-5 h-5 rounded-lg border-3 border-[#A8D0E6] text-[#4A90A4] focus:ring-4 focus:ring-[#4A90A4]/30 transition-all duration-300"
+                    />
+                    <span class="ml-3 text-sm font-semibold text-[#555B6E] group-hover:text-[#4A90A4] transition-colors duration-300">This review contains spoilers</span>
+                  </label>
+                </div>
+
+                <!-- Date Watched (Optional) -->
+                <div class="mb-8">
+                  <label for="dateWatched" class="block text-sm font-bold mb-2 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">
+                    Date Watched <span class="text-[#6C8B5C] font-normal">(Optional)</span>
+                  </label>
                   <input
-                    type="checkbox"
-                    formControlName="isSpoiler"
-                    class="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                    id="dateWatched"
+                    type="date"
+                    formControlName="dateWatched"
+                    class="w-full px-4 py-3 border-3 border-[#A8D0E6] rounded-2xl focus:ring-4 focus:ring-[#4A90A4]/30 focus:border-[#4A90A4] transition-all duration-300 text-[#555B6E] bg-white"
+                    [max]="today"
                   />
-                  <span class="ml-2 text-sm text-slate-700">This review contains spoilers</span>
-                </label>
-              </div>
+                </div>
 
-              <!-- Date Watched (Optional) -->
-              <div class="mb-6">
-                <label for="dateWatched" class="block text-sm font-medium text-slate-700 mb-2">
-                  Date Watched <span class="text-slate-500">(Optional)</span>
-                </label>
-                <input
-                  id="dateWatched"
-                  type="date"
-                  formControlName="dateWatched"
-                  class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  [max]="today"
-                />
-              </div>
-
-              <button
-                type="submit"
-                [disabled]="reviewForm.invalid"
-                class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-semibold"
-              >
-                Submit Review
-              </button>
-            </form>
+                <div class="flex justify-end">
+                  <button
+                    type="submit"
+                    [disabled]="reviewForm.invalid"
+                    class="px-6 py-3 text-white rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-sm shadow-xl hover:scale-105 hover:shadow-2xl"
+                    [style.background]="reviewForm.invalid ? '#9CA3AF' : 'linear-gradient(135deg, #4A90A4 0%, #A8D0E6 100%)'"
+                  >
+                    Submit Review
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
 
           <!-- Display Reviews -->
-          <div *ngIf="filmReviews().length > 0" class="bg-white rounded-lg shadow-lg p-6 border-2 border-purple-100">
-            <h2 class="text-2xl font-semibold text-slate-800 mb-4">Your Reviews</h2>
-            <div class="space-y-6">
-              <div 
-                *ngFor="let review of filmReviews()" 
-                class="p-6 bg-purple-50 rounded-lg border border-purple-200"
-              >
-                <!-- Star Rating Display -->
-                <div class="flex items-center gap-4 mb-3">
-                  <div class="text-2xl">
-                    <span *ngFor="let star of [1, 2, 3, 4, 5]" [class.text-yellow-400]="star <= review.rating" [class.text-gray-300]="star > review.rating">
-                      {{ star <= review.rating ? '★' : '☆' }}
+          <div *ngIf="filmReviews().length > 0" class="relative bg-white rounded-2xl shadow-xl p-8 md:p-10 border-3 border-[#8FBF8F] overflow-hidden">
+            <!-- Floating Decoration -->
+            <div class="absolute -top-8 -right-8 w-32 h-32 rounded-full opacity-20" style="background: linear-gradient(135deg, #8FBF8F 0%, #6C8B5C 100%);"></div>
+            
+            <div class="relative">
+              <h2 class="text-2xl font-bold mb-6 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">Your Reviews</h2>
+              <div class="space-y-6">
+                <div 
+                  *ngFor="let review of filmReviews()" 
+                  class="p-6 rounded-2xl border-2 border-[#EDE7D9] bg-gradient-to-br from-[#F7F3E9] to-white shadow-lg hover:shadow-xl transition-shadow duration-300"
+                >
+                  <!-- Star Rating Display & Badges -->
+                  <div class="flex flex-wrap items-center gap-3 mb-4">
+                    <div class="text-2xl">
+                      <span *ngFor="let star of [1, 2, 3, 4, 5]" [style.color]="star <= review.rating ? '#E57A44' : '#d1d5db'">
+                        {{ star <= review.rating ? 'â˜…' : 'â˜†' }}
+                      </span>
+                    </div>
+                    <span *ngIf="review.isSpoiler" class="px-3 py-1 text-xs rounded-full font-bold bg-gradient-to-br from-[#E57A44] to-[#F2B8A2] text-white">
+                      SPOILER
+                    </span>
+                    <span class="px-3 py-1 text-xs rounded-full font-bold bg-gradient-to-br from-[#4A90A4] to-[#A8D0E6] text-white">
+                      {{ review.mood }}
                     </span>
                   </div>
-                  <span *ngIf="review.isSpoiler" class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full font-semibold">
-                    SPOILER
-                  </span>
-                  <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
-                    {{ review.mood }}
-                  </span>
-                </div>
-                
-                <!-- Review Title -->
-                <h3 class="text-lg font-semibold text-slate-800 mb-2">{{ review.title }}</h3>
-                
-                <!-- Review Text -->
-                <p class="text-slate-700 mb-3 leading-relaxed">{{ review.reviewText }}</p>
-                
-                <!-- Metadata -->
-                <div class="flex justify-between items-center text-xs text-slate-500 border-t border-purple-200 pt-3">
-                  <div class="space-x-4">
-                    <span>Posted: {{ review.timestamp | date:'medium' }}</span>
-                    <span *ngIf="review.dateWatched">Watched: {{ review.dateWatched | date:'shortDate' }}</span>
+                  
+                  <!-- Review Title -->
+                  <h3 class="text-lg font-bold mb-2 text-[#555B6E]" style="font-family: 'Outfit', sans-serif;">{{ review.title }}</h3>
+                  
+                  <!-- Review Text -->
+                  <p class="mb-4 leading-relaxed text-[#555B6E] text-sm">{{ review.reviewText }}</p>
+                  
+                  <!-- Metadata -->
+                  <div class="flex flex-wrap justify-between items-center gap-4 text-xs pt-4 border-t-2 border-[#EDE7D9]">
+                    <div class="flex flex-wrap gap-4 text-[#6C8B5C] font-semibold">
+                      <span>Posted: {{ review.timestamp | date:'medium' }}</span>
+                      <span *ngIf="review.dateWatched">Watched: {{ review.dateWatched | date:'shortDate' }}</span>
+                    </div>
+                    <button
+                      (click)="deleteReview(review)"
+                      class="px-4 py-2 rounded-full font-bold transition-all duration-300 hover:scale-105 bg-gradient-to-br from-[#E57A44] to-[#B94625] text-white shadow-md hover:shadow-lg"
+                    >
+                      Delete
+                    </button>
                   </div>
-                  <button
-                    (click)="deleteReview(review)"
-                    class="text-red-600 hover:text-red-800 font-medium"
-                  >
-                    Delete
-                  </button>
                 </div>
               </div>
             </div>
